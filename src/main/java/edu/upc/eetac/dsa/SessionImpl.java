@@ -17,9 +17,11 @@ public class SessionImpl implements Session {
         this.conn = conn;
     }
 
-    public void save(Object entity) throws NoSuchFieldException, IllegalAccessException {
+    public void save(Object entity) {
 
         String insertQuery = QueryHelper.createQueryINSERT(entity);
+
+        System.out.println(insertQuery);
 
         PreparedStatement pstm = null;
 
@@ -34,7 +36,7 @@ public class SessionImpl implements Session {
 
             pstm.executeQuery();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
