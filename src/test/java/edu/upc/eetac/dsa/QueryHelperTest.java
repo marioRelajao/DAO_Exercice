@@ -17,7 +17,7 @@ public class QueryHelperTest {
 
     @Test
     public void testQueryINSERT2() {
-        Assert.assertEquals("INSERT INTO Deparment (ID, name, description) VALUES (?, ?, ?)",
+        Assert.assertEquals("INSERT INTO Deparment (ID, name, description) VALUES (0, ENTEL, ENGINYERIA TELEMÀTICA)",
                 QueryHelper.createQueryINSERT(new Deparment("ENTEL", "ENGINYERIA TELEMÀTICA")));
     }
 
