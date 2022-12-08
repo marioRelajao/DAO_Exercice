@@ -23,13 +23,13 @@ public class QueryHelperTest {
 
     @Test
     public void testQuerySELECT() {
-        Assert.assertEquals("SELECT * FROM Employee WHERE ID = ?",
+        Assert.assertEquals("SELECT * FROM Employee WHERE ID = 0 AND name = 'Juan' AND surname = 'lopez' AND salary = 333333",
                 QueryHelper.createQuerySELECT(new Employee("Juan", "lopez", 333333)));
     }
 
     @Test
     public void testQuerySELECT2() {
-        Assert.assertEquals("SELECT * FROM Deparment WHERE ID = ?",
+        Assert.assertEquals("SELECT * FROM Deparment WHERE ID = 0 AND name = 'ENTEL' AND description = 'ENGINYERIA TELEMÀTICA'",
                 QueryHelper.createQuerySELECT(new Deparment("ENTEL", "ENGINYERIA TELEMÀTICA")));
     }
 

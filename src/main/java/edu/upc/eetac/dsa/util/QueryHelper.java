@@ -25,7 +25,7 @@ public class QueryHelper {
                 sb.append(", ").append(temp);
             }
             else {
-                sb.append(", ").append(ObjectHelper.getter(entity,field.toString()));
+                sb.append(", '").append(ObjectHelper.getter(entity,field.toString())).append("'");
 
             }
         }
@@ -38,8 +38,22 @@ public class QueryHelper {
     public static String createQuerySELECT(Object entity) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
-        sb.append(" WHERE ID = ?");
-
+        sb.append(" WHERE ID = 0");
+        System.out.println(sb);
+        String [] fields = ObjectHelper.getFields(entity);
+        for (String field: fields) {
+            sb.append(" AND ").append(field);
+            sb.append(" = ");
+            if(field.toString()=="salary"){
+                String temp = ObjectHelper.getter(entity,field.toString()).toString();
+                temp = temp.split("\\.")[0];
+                sb.append(temp);
+            }
+            else {
+                sb.append("'").append(ObjectHelper.getter(entity,field.toString())).append("'");
+            }
+            System.out.println(sb);
+        }
         return sb.toString();
     }
 

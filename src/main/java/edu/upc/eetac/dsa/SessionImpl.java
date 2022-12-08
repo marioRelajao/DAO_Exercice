@@ -4,8 +4,7 @@ import edu.upc.eetac.dsa.util.ObjectHelper;
 import edu.upc.eetac.dsa.util.QueryHelper;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class SessionImpl implements Session {
             for (String field: ObjectHelper.getFields(entity)) {
                 pstm.setObject(i++, ObjectHelper.getter(entity, field));
             }
-
+            System.out.println(pstm.toString());
             pstm.executeQuery();
 
         } catch (Exception e) {
@@ -43,7 +42,11 @@ public class SessionImpl implements Session {
     }
 
     public void close() {
-
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Object get(Class theClass, int ID) {

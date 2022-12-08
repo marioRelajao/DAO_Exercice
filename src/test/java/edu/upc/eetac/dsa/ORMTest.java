@@ -12,7 +12,7 @@ public class ORMTest {
 
     @Before
     public void setUp() {
-        ///
+        ///Hay que setear la BBDD
     }
 
     @After
