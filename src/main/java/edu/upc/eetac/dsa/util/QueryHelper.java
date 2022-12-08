@@ -2,23 +2,32 @@ package edu.upc.eetac.dsa.util;
 
 public class QueryHelper {
 
-    public static String createQueryINSERT(Object entity) {
+    public static String createQueryINSERT(Object entity) { //INSERT INTO employees (ID, name, surname, salary) VALUES (0, Jose, Martinez, 10);
 
         StringBuffer sb = new StringBuffer("INSERT INTO ");
         sb.append(entity.getClass().getSimpleName()).append(" ");
         sb.append("(");
 
-        String [] fields = ObjectHelper.getFields(entity);
+        String [] fields = ObjectHelper.getFields(entity); //[name, surname, salary]
 
         sb.append("ID");
         for (String field: fields) {
             sb.append(", ").append(field);
         }
 
-        sb.append(") VALUES (?");
+        sb.append(") VALUES (0");
 
         for (String field: fields) {
-            sb.append(", ?");
+            System.out.println("Añadimos valor! " + sb);
+            if(field.toString()=="salary"){
+                String temp = ObjectHelper.getter(entity,field.toString()).toString();
+                temp = temp.split("\\.")[0];
+                sb.append(", ").append(temp);
+            }
+            else {
+                sb.append(", ").append(ObjectHelper.getter(entity,field.toString()));
+
+            }
         }
 
         sb.append(")");

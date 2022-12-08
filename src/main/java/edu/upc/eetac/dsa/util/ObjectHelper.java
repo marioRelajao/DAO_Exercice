@@ -2,7 +2,7 @@ package edu.upc.eetac.dsa.util;
 
 
 import java.io.Console;
-import java.lang.reflect.Field;
+import java.lang.reflect.*;
 
 public class ObjectHelper {
     public static String[] getFields(Object entity) {
@@ -30,10 +30,12 @@ public class ObjectHelper {
         try{
             clase = object.getClass();
             System.out.println("Clase: "+ clase.toString());
-            field = clase.getField(property);
-            System.out.println("Field: "+ field.toString());
-            field.set(object,value);
-            System.out.println("Afegit "+ value.toString() + " a la clase "+ clase.toString());
+            Method[] methods = clase.getDeclaredMethods(); //Array de metodos que imoplican getters/setters
+            for (Method m: methods){ //Buscamos todos los metodos de la clase (getter, setters etc)
+                if (m.getName().equals("set"+property.substring(0,1).toUpperCase()+property.substring(1))){ //si el metodo m es igual que setName(ponemos la primera en mayus) hace cosas
+                    m.invoke(object, value); //employee.setName("pepito")
+                }
+            }
         }
         catch (Exception e){
             System.out.println ("-!-!-!-!-!OJO PROBLEMA!-!-!-!-!-!");
@@ -46,19 +48,22 @@ public class ObjectHelper {
         // Method // invoke
         System.out.println("-------------Començant Getter----------------");
         Class clase = null;
-        Field field = null;
         Object value = null;
         try {
             clase = object.getClass();
-            System.out.println("Clase: "+ clase.toString());
-            field = clase.getField(property);
-            System.out.println("Field: "+ field.toString());
-            value = field.get(object);
-            System.out.println("Valor: "+ value.toString());
+            System.out.println(clase.toString());
+            Method[] methods = clase.getDeclaredMethods();
+            for (Method m: methods){
+                if (m.getName().equals("get"+property.substring(0,1).toUpperCase()+property.substring(1))){
+                    System.out.println("TENEMOS METODO "+ m.toString());
+                    value = m.invoke(object);
+                    return value;
+                }
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return value;
+        return null;
     }
 }

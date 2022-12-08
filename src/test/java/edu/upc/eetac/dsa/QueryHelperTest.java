@@ -11,7 +11,7 @@ public class QueryHelperTest {
 
     @Test
     public void testQueryINSERT() {
-        Assert.assertEquals("INSERT INTO Employee (ID, name, surname, salary) VALUES (?, ?, ?, ?)",
+        Assert.assertEquals("INSERT INTO Employee (ID, name, surname, salary) VALUES (0, Juan, lopez, 333333)",
                 QueryHelper.createQueryINSERT(new Employee("Juan", "lopez", 333333)));
     }
 
