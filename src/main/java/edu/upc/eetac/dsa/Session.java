@@ -6,6 +6,7 @@ import java.util.List;
 public interface Session<E> {
     void save(Object entity);
     void close();
+    void clean();
     Object get(Class theClass, int ID);
     void update(Object object);
     void delete(Object object);

@@ -22,7 +22,7 @@ public class FactorySession {
         Connection conn = null;
         try {
             conn =
-                    DriverManager.getConnection("jdbc:mysql://localhost/test?" +
+                    DriverManager.getConnection("jdbc:mariadb://localhost:3306/test?" +
                             "user=root&password=dsaProjectG6");
             System.out.println("Connection created");
 

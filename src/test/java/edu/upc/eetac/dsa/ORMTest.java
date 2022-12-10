@@ -11,8 +11,10 @@ public class ORMTest {
 
 
     @Before
-    public void setUp() {
-        ///
+    public void setUp() { //Eliminar cosas si existen y dejarla limpia
+        ///Hay que setear la BBDD
+        Session s = FactorySession.openSession();
+        s.clean();
     }
 
     @After

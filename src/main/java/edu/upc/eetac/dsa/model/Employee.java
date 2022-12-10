@@ -27,4 +27,12 @@ public class Employee {
     public String getName() {
         return this.name;
     }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
 }

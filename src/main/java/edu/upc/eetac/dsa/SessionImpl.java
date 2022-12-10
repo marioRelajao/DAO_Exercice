@@ -16,7 +16,7 @@ public class SessionImpl implements Session {
     public SessionImpl(Connection conn) {
         this.conn = conn;
     }
-
+//Aqui s'han de cambiar els interrogants pels valors
     public void save(Object entity) {
 
         String insertQuery = QueryHelper.createQueryINSERT(entity);
@@ -29,11 +29,12 @@ public class SessionImpl implements Session {
             pstm = conn.prepareStatement(insertQuery);
             pstm.setObject(1, 0);
             int i = 2;
-
+            System.out.println("Entramos al bucle que ahce cosas del save");
             for (String field: ObjectHelper.getFields(entity)) {
                 pstm.setObject(i++, ObjectHelper.getter(entity, field));
             }
-
+            System.out.println("!-!-!-!-!-!-!-! SENTENCIA!!!!11!!1!!1!1!!!!!!");
+            System.out.println(pstm);
             pstm.executeQuery();
 
         } catch (Exception e) {
@@ -46,7 +47,29 @@ public class SessionImpl implements Session {
 
     }
 
-    public Object get(Class theClass, int ID) {
+    @Override
+    public void clean() {
+        String query = "TRUNCATE TABLE employee";
+        try {
+            PreparedStatement pstm = conn.prepareStatement(query);
+            pstm.executeQuery(); //Aqui en teoria limpiamos employee
+            query = "TRUNCATE TABLE deparment";
+            pstm = conn.prepareStatement(query);
+            pstm.executeQuery(); //Aqui limpiamos deparment
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object get(Class theClass, int ID) { //Aqui el mateix que el save pero amb la query del select
+        try {
+            Object entity = theClass.newInstance();
+
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 
